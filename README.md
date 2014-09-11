@@ -1,4 +1,4 @@
-canvasUI
-========
+UI : Canvas Experiments
+=================
 
-Experiments for Canvas-based UI elements 
+Just a repo for my canvas experiments... maybe one day it will become a complete library for developing javascript/canvas-based webApps
