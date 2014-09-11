@@ -93,7 +93,6 @@ webApp.App.prototype.extend({
 			h = document.getElementsByTagName("html")[0],
 			self = this;
 		
-		this.cnv.style.position = "fixed";
 		h.style.height = "100%";
 		h.style.width = "100%";
 		h.style.padding = "0";
@@ -103,6 +102,7 @@ webApp.App.prototype.extend({
 		b.style.padding = "0";
 		b.style.margin = "0";
 		this.cnv.style.position = "fixed";
+		this.cnv.style.zIndex = "100";
 		this.resize();
 	},
 	resources: function(config){
