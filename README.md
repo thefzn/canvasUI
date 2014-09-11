@@ -8,7 +8,7 @@ Just a repo for my canvas experiments... maybe one day it will become a complete
 
 This script uses canvas, so, you'll need to use a browser that supports HTML5:
 
-- IE 11+
+- IE 10+
 - Firefox
 - Chrome
 - Safari
