@@ -29,6 +29,9 @@ webApp.App.prototype.extend({
 			console.log("Canvas not supported or error loading")
 			return false;
 		}
+		
+		this.canvas.setLineDash = this.canvas.setLineDash || function(){};
+		
 		this.goFullScreen();
 		this.setListeners();
 	},
