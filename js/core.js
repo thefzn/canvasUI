@@ -122,15 +122,15 @@ webApp.App.prototype.extend({
 		var self = this;
 		window.onresize = function(){self.resize()};
 		document.onmousemove = function(event){self.handleMouseMove(event)};
-		this.cnv.onmousedown = function(event){self.handleClick(event,true)};
-		this.cnv.onmouseup = function(event){self.handleClick(event,false)};
+		document.onmousedown = function(event){self.handleClick(event,true)};
+		document.onmouseup = function(event){self.handleClick(event,false)};
 	},
 	handleMouseMove:function(event) {
 		event = event || window.event; // IE-ism
 		this.mousePos = [Math.round(event.clientX),Math.round(event.clientY)];
 	},
 	handleClick: function(event,down){
-		var pos = [event.offsetX,event.offsetY],
+		var pos = [event.clientX,event.clientY],
 			down = down || false,
 			itm;
 		for(itm in this.clickableItems){
