@@ -12,8 +12,9 @@
 		<script type="text/javascript" src="js/group.js"></script>
 		<script type="text/javascript" src="js/items/link.js"></script>
 		<script type="text/javascript" src="js/items/progress.js"></script>
+		<script type="text/javascript" src="js/items/dialog.js"></script>
 		<script>
-			var app,link01,link02,progress01;
+			var app,link01,link02,progress01,dialog01;
 			function loadApp(){
 				app = new webApp.App("theApp");
 				
@@ -38,11 +39,17 @@
 				//Create a progress item, filled at 95% and with the preloaded image on the center
 				progress01 = app.create("ProgressItm", { pos : [300,100], progress: 95, image: "htmlIcon"});
 				
+				//Create a dialog
+				dialog01 = app.create("Dialog", { pos : [300,300]});
+				
 				//Attach the ending (by default) of Link01 item to the Progress Item
 				link01.attach(progress01);
 				
 				//Attach the beginning of Link02 item to the Progress Item
 				link02.attach(progress01,true);
+				
+				//Attach the dialog to the bottom of the Progress Item
+				dialog01.attach(progress01,"B");
 				
 				//Turn the Progress Item into a draggable item
 				progress01.dragOn();
