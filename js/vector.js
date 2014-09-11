@@ -63,7 +63,7 @@ webApp.Vector.prototype.extend({
 			if(this.color){
 				this.canvas.strokeStyle = this.color;
 			}
-			if(style == "dashed" && typeof this.canvas.setLineDash == "function"){
+			if(style == "dashed"){
 				this.canvas.setLineDash([size*space]);
 			}
 			if(this.type == "circle"){
