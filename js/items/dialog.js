@@ -13,7 +13,7 @@ webApp.Dialog = function(params,parent){
 	this.attachedIsMoving = false;
 	this.refresh = false;
 	this.attachments = false
-	
+
 	this.Dialog(params,parent);
 }
 
@@ -35,7 +35,7 @@ webApp.Dialog.prototype.extend({
 		p.pos            = p.pos || this.pos;
 		p.color          = p.color || this.color;
 		p.size           = p.size || this.size;
-		
+
 		arrow = this.getArrowCoords(p.pos);
 		elements = {
 			vector: [
@@ -58,7 +58,6 @@ webApp.Dialog.prototype.extend({
 				}
 			],
 		};
-		console.log(elements.vector);
 		/*
 		if(this.image){
 			tmp = {
@@ -111,10 +110,8 @@ webApp.Dialog.prototype.extend({
 	refreshItems: function(){
 		var arrow = this.getArrowCoords(),
 			itm;
-		console.log("refreshItems")
 		for(itm in this.items){
 			if(this.items[itm].type == "polygon"){
-				console.log("arrow",this.pos,arrow);
 				this.items[itm].pos = arrow.pos;
 				this.items[itm].coords = arrow.coords;
 			}
