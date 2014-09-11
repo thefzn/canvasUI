@@ -33,6 +33,7 @@ webApp.Draggable.prototype.extend({
 	dragStart: function(){
 		if(!this.app || this.isMoving || this.dragging)
 			return false;
+		this.app.cnv.style.cursor = "move";
 		this.initial = this.pos.slice();
 		this.mInitial = this.app.mousePos;
 		this.dragging = true;
@@ -41,6 +42,7 @@ webApp.Draggable.prototype.extend({
 	dragEnd: function(){
 		if(!this.app || !this.dragging)
 			return false;
+		this.app.cnv.style.cursor = "default";
 		this.dragging = false;
 	},
 	clickDown:function(pos){
