@@ -22,6 +22,7 @@ webApp.Vector.prototype.extend({
 		this.opacity  = (typeof params.opacity != "undefined") ? params.opacity : 1;
 		this.color    = params.color || false;
 		this.tile     = params.tile || false;
+		this.size     = params.size || [10,10];
 		this.coords   = params.coords || [];
 		this.radius   = params.radius || 5;
 		this.circle   = params.circle || {};
@@ -30,7 +31,8 @@ webApp.Vector.prototype.extend({
 		this.type     = params.type || "line";
 	},
 	drawPolygon:function(adjust){
-		var i, len, coord;
+		var adjust = adjust || 0,
+			i, len, coord;
 		this.canvas.moveTo(this.coords[0][0] + adjust + this.pos[0],this.coords[0][1] + adjust + this.pos[1]);
 		for(i = 1, len = this.coords.length; i < len; i++){
 			coord = this.coords[i];
@@ -44,6 +46,24 @@ webApp.Vector.prototype.extend({
 				dir:   this.circle.dir || false
 			}
 		this.canvas.arc(this.coords[0], this.coords[1], this.radius, circle.start, circle.end, circle.dir);
+	},
+	drawRectangle: function() {
+		var x = this.pos[0],
+			y = this.pos[1],
+			width = this.size[0],
+			height = this.size[1],
+			radius = this.radius;
+		this.canvas.beginPath();
+		this.canvas.moveTo(x + radius, y);
+		this.canvas.lineTo(x + width - radius, y);
+		this.canvas.quadraticCurveTo(x + width, y, x + width, y + radius);
+		this.canvas.lineTo(x + width, y + height - radius);
+		this.canvas.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+		this.canvas.lineTo(x + radius, y + height);
+		this.canvas.quadraticCurveTo(x, y + height, x, y + height - radius);
+		this.canvas.lineTo(x, y + radius);
+		this.canvas.quadraticCurveTo(x, y, x + radius, y);
+		this.canvas.closePath();
 	},
 	redraw: function(){
 		if(!this.canvas)
@@ -66,23 +86,27 @@ webApp.Vector.prototype.extend({
 			if(style == "dashed"){
 				this.canvas.setLineDash([size*space]);
 			}
-			if(this.type == "circle"){
-				this.drawCircle(adjust);
-			}else{
-				this.drawPolygon(adjust);
-			}
-			this.canvas.stroke();
 		}
 		if(this.fill){
 			if(this.color || (this.tile && this.image)){
 				pat = (this.tile && this.image) ? this.canvas.createPattern(this.image,'repeat') : false;
 				this.canvas.fillStyle = pat || this.color;
 			}
-			if(this.type == "circle"){
-				this.drawCircle(0);
-			}else{
-				this.drawPolygon(0);
-			}
+		}
+		switch(this.type){	
+			case "circle":
+				this.drawCircle(adjust);
+			break;
+			case "rectangle":
+				this.drawRectangle(adjust);
+			break;
+			default:
+				this.drawPolygon(adjust);
+		}
+		if(this.line){
+			this.canvas.stroke();
+		}
+		if(this.fill){
 			this.canvas.fill();
 		}
 		this.canvas.restore();
