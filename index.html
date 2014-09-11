@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Canvas Tests</title>
+		<style>
+			@font-face {
+				font-family: "8BitWonder";
+				src: url("fonts/8BitWonder.eot");
+				src: local("?"),
+				url("fonts/8BitWonder.woff") format("woff"),
+				url("fonts/8BitWonder.ttf") format("truetype"),
+				url("fonts/8BitWonder.svg#webfontkGgbkDbi") format("svg");
+			}
+			@font-face {
+				font-family: "Gamegirl";
+				src: url("fonts/Gamegirl.eot");
+				src: local("?"),
+				url("fonts/Gamegirl.woff") format("woff"),
+				url("fonts/Gamegirl.ttf") format("truetype"),
+				url("fonts/Gamegirl.svg#webfontkGgbkDbi") format("svg");
+			}
+			@font-face {
+				font-family: "PressStart";
+				src: url("fonts/PressStart2P.eot");
+				src: local("?"),
+				url("fonts/PressStart2P.woff") format("woff"),
+				url("fonts/PressStart2P.ttf") format("truetype"),
+				url("fonts/PressStart2P.svg#webfontkGgbkDbi") format("svg");
+			}
+		</style>
+		<script type="text/javascript" src="js/object.js"></script>
+		<script type="text/javascript" src="js/resource.js"></script>
+		<script type="text/javascript" src="js/collection.js"></script>
+		<script type="text/javascript" src="js/core.js"></script>
+		<script type="text/javascript" src="js/drawable.js"></script>
+		<script type="text/javascript" src="js/vector.js"></script>
+		<script type="text/javascript" src="js/draggable.js"></script>
+		<script type="text/javascript" src="js/group.js"></script>
+		<script type="text/javascript" src="js/link.js"></script>
+		<script type="text/javascript" src="js/progress.js"></script>
+		<script>
+			var app,test1,test2;
+			function loadApp(){
+				app = new webApp.App("theApp");
+				/*app.resources({
+					images: [
+						{name:"htmlIcon",src:"img/ico02.png"},
+						"img/ico02.png"
+					]
+				});
+				*/
+				test1 = app.create("Link", { pos:[100,100], end:[200,200], squared:true,
+					bullet: [
+						{ type : "circle", color : "#282626", fill : true },
+						{ type : "polygon", color : "#F6F6F8", fill : true, coords: [ [-3,-5], [6,0], [-3,6] ] }
+					]
+				});
+				test2 = app.create("Link", { pos : [300,300], end : [400,400], squared : true, vertical : true});
+				test3 = app.create("ProgressItm", { pos : [300,100], progress: 95/*, image: "htmlIcon"*/});
+				test1.attach(test3);
+				test2.attach(test3,true);
+				test3.dragOn()
+			}
+		</script>
+	</head>
+	<body onload="loadApp();">
+		<canvas id="theApp" ></canvas>
+	</body>
+</html>
