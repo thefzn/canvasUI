@@ -10,6 +10,9 @@ webApp.ProgressItm = function(params,parent){
 	this.image = false;
 	this.progressValues = false;
 	this.imageValues = false;
+	this.refresh = false;
+	this.aData = {};
+	this.isAnimated = false;
 	
 	this.ProgressItm(params,parent);
 }
@@ -22,6 +25,7 @@ webApp.ProgressItm.prototype.extend({
 			i = 0,
 			len = 0,
 			elements = {},
+			initP = 0,
 			tmp,imgData;
 		this.style          = p.style || this.style;
 		this.width          = p.width || this.width;
@@ -50,6 +54,8 @@ webApp.ProgressItm.prototype.extend({
 			drawable: []
 		};
 		if(this.progress){
+			initP = this.progress;
+			this.progress = 0.1;
 			tmp = {
 				type:         this.style,
 				line: 	      {
@@ -73,16 +79,46 @@ webApp.ProgressItm.prototype.extend({
 		this.Group(elements,p,parent);
 		this.image = this.validateImage(p.image);
 		this.refreshItems();
-	},
-	beforeRedraw: function(){
-		if(this.isMoving || !this.loaded){
-			this.refreshItems();
+		if(initP){
+			this.changeProgress(initP);
 		}
 	},
-	changeProgress: function(val){
-		this.progress = parseInt(val) || this.progress;
-		this.progressValues = false;
-		this.imageValues = false;
+	beforeRedraw: function(){
+		if(this.isMoving || !this.loaded || this.refresh || this.isAnimated){
+			if(this.isAnimated){
+				this.calcProgress();
+				this.progressValues = false;
+			}
+			this.refreshItems();
+			this.refresh = false;
+		}
+	},
+	changeProgress: function(val,c){
+		var validated = parseInt(val) || 0.1;
+		validated = Math.max(0,validated);
+		validated = Math.min(100,validated);
+		this.isAnimated = true;
+		this.aData.callback = c || function(){}; 
+		this.aData.finalP = validated;
+	},
+	calcProgress: function(){
+		var res = 0,
+			ease = 4,
+			x,y;
+		if(!this.isAnimated)
+			return false;
+		this.aData.finalP = this.aData.finalP || this.progress;
+		if(this.progress == this.aData.finalP){
+			this.isAnimated = false;
+			return false;
+		}
+		res = Math.round(this.progress + ((this.aData.finalP - this.progress) / ease));
+		if(res == this.progress){
+			this.progress = this.aData.finalP;
+			this.aData.callback(this);
+		}else{
+			this.progress = res;
+		}
 	},
 	getImageData: function(){
 		var coords = [this.pos[0] + (this.width / 2),this.pos[1] + (this.width / 2)],
