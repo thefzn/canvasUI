@@ -9,6 +9,7 @@
 		<script type="text/javascript" src="js/drawable.js"></script>
 		<script type="text/javascript" src="js/vector.js"></script>
 		<script type="text/javascript" src="js/draggable.js"></script>
+		<script type="text/javascript" src="js/text.js"></script>
 		<script type="text/javascript" src="js/group.js"></script>
 		<script type="text/javascript" src="js/items/link.js"></script>
 		<script type="text/javascript" src="js/items/progress.js"></script>
@@ -25,7 +26,8 @@
 					]
 				});
 
-				//Create a link object, horizontal (by default) with a bullet
+				//Create a link object, horizontal (by default) with a customized bullet
+				//The "squared" property forces the link to use horizontal / vertical lines only
 				link01 = app.create("Link", { pos:[100,100], end:[200,200], squared:true,
 					bullet: [
 						{ type : "circle", color : "#282626", fill : true },
@@ -40,7 +42,7 @@
 				progress01 = app.create("ProgressItm", { pos : [300,100], progress: 95, image: "htmlIcon"});
 
 				//Create a dialog
-				dialog01 = app.create("Dialog", { pos : [300,300]});
+				dialog01 = app.create("Dialog", { pos : [300,300], text : ["95%","HTML"], autoSize: true});
 
 				//Attach the ending (by default) of Link01 item to the Progress Item
 				link01.attach(progress01);
@@ -54,9 +56,10 @@
 				//Turn the Progress Item into a draggable item
 				progress01.dragOn();
 			}
+			window.onload = loadApp;
 		</script>
 	</head>
-	<body onload="loadApp();">
+	<body>
 		<span style="position:fixed;z-index:-1">Drag the HTML Progress Item</span>
 		<canvas id="theApp" ></canvas>
 	</body>
