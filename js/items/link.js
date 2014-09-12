@@ -107,6 +107,7 @@ webApp.Link.prototype.extend({
 			}
 			this.refreshItems();
 			this.refresh = false;
+			this.attachedIsMoving = false;
 		}
 	},
 	refreshItems: function(){
