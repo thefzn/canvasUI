@@ -1,15 +1,19 @@
 var webApp = webApp || {};
 webApp.Dialog = function(params,parent){
 	this.size = [100,25];
+	this.autoSize = false;
 	this.pos = [0,0];
 	this.fill = false;
 	this.line = false;
+	this.align = "center";
 	this.text = false;
 	this.radius = 0;
 	this.color = "#BB3531";
 	this.dir = "T";
 	this.arrowSize = 5;
-	this.fontColor = "#BB3531";
+	this.fontColor = "white";
+	this.fontSize = 13;
+	this.font = "Arial";
 	this.attachedIsMoving = false;
 	this.refresh = false;
 	this.attachments = false
@@ -29,7 +33,12 @@ webApp.Dialog.prototype.extend({
 		this.fill        = p.fill || this.fill;
 		this.line        = p.line || this.line;
 		this.radius      = p.radius || this.radius;
-		this.textColor   = p.textColor || this.textColor;
+		this.autoSize    = p.autoSize || this.autoSize;
+		this.text        = p.text || this.text;
+		this.align       = p.align || this.align;
+		this.font        = "'" + p.font + "'" || this.font;
+		this.fontColor   = p.fontColor || this.fontColor;
+		this.fontSize    = p.fontSize || this.fontSize;
 		this.image       = p.image || this.image;
 		this.dir = "T";
 		p.pos            = p.pos || this.pos;
@@ -57,18 +66,25 @@ webApp.Dialog.prototype.extend({
 					fill:    true
 				}
 			],
+			text: []
 		};
-		/*
-		if(this.image){
+		if(this.text){
 			tmp = {
-				type:         "image",
-				pos:          coords,
-				image:        this.image
+				type:         "text",
+				pos:          p.pos.slice(),
+				font:         this.font,
+				size:         this.fontSize,
+				color:        this.fontColor,
+				align:        this.align,
+				spacing:      this.arrowSize / 2,
+				text:         this.text
 			}
-			elements.drawable.push(tmp);
+			elements.text.push(tmp);
 		}
-		*/
 		this.Group(elements,p,parent);
+		if(this.autoSize){
+			this.getAutoSize();
+		}
 		this.refresh = true;
 	},
 	getArrowCoords: function(){
@@ -99,26 +115,72 @@ webApp.Dialog.prototype.extend({
 		}
 		return {coords : sel, pos : pos};
 	},
+	getAutoSize: function(){
+		var text = (typeof this.text == "string") ? [this.text] : this.text,
+			width = 0,
+			lineHeight = this.fontSize + (this.arrowSize / 2),
+			res = [],
+			i = 0,
+			len, measure;
+		this.canvas.save();
+		this.canvas.font = this.fontSize + "px " + this.font + ", Arial";
+		for(len = text.length; i < len; i++){
+			measure = this.canvas.measureText(text[i]);
+			width = Math.max(measure.width,width);
+		}
+		this.canvas.restore();
+		res = [Math.round(width) + (this.arrowSize * 4), (lineHeight * len) + (this.arrowSize * 2)];
+		this.size = res;
+	},
+	getTextPos: function(){
+		var lineHeight = this.fontSize + this.arrowSize - 1,
+			res;
+		switch(this.align){
+			case "center":
+				res = [this.pos[0] + (this.size[0] / 2), this.pos[1] + lineHeight];
+			break;
+			case "right":
+				res = [this.pos[0] + this.size[0] - (this.arrowSize * 2), this.pos[1] + lineHeight];
+			break;
+			default:
+				res = [this.pos[0] + (this.arrowSize * 2), this.pos[1] + lineHeight];
+		}
+		return res;
+	},
+	updateText: function(newText){
+		this.text = newText;
+		if(this.autoSize){
+			this.getAutoSize();
+		}
+		this.refresh = true;
+	},
 	beforeRedraw:function(){
 		var followMouse = this.attachments == "mouse";
 		if(this.isMoving || this.attachedIsMoving || this.refresh || followMouse){
 			this.checkAttachments();
 			this.refreshItems();
 			this.refresh = false;
+			this.attachedIsMoving = false;
 		}
 	},
 	refreshItems: function(){
 		var arrow = this.getArrowCoords(),
-			itm;
+			lineHeight, itm;
+		
 		for(itm in this.items){
+			if(this.items[itm].type == "rectangle"){
+				this.items[itm].pos = this.pos.slice();
+				this.items[itm].size = this.size.slice();
+			}
 			if(this.items[itm].type == "polygon"){
 				this.items[itm].pos = arrow.pos;
 				this.items[itm].coords = arrow.coords;
 			}
-			if(this.items[itm].type == "rectangle"){
-				this.items[itm].pos = this.pos.slice();
+			if(this.items[itm].type == "text"){
+				lineHeight = this.fontSize + this.arrowSize - 1;
+				this.items[itm].text = this.text;
+				this.items[itm].pos = this.getTextPos();
 			}
-			//if(this.items[itm].type == "text"){}
 		}
 	},
 	checkAttachments: function(){
@@ -167,6 +229,8 @@ webApp.Dialog.prototype.extend({
 				for(itm in item.links){
 					if(item.links[itm]){
 						item.links[itm].attachedIsMoving = true;
+					}else{
+						item.links[itm].attachedIsMoving = false;
 					}
 				}
 			}
