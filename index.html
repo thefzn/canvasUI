@@ -14,8 +14,9 @@
 		<script type="text/javascript" src="js/items/link.js"></script>
 		<script type="text/javascript" src="js/items/progress.js"></script>
 		<script type="text/javascript" src="js/items/dialog.js"></script>
+		<script type="text/javascript" src="js/items/title.js"></script>
 		<script>
-			var app,link01,link02,progress01,dialog01;
+			var app,link01,link02,progress01,dialog01,title01;
 			function loadApp(){
 				app = new webApp.App("theApp");
 
@@ -43,6 +44,9 @@
 
 				//Create a dialog
 				dialog01 = app.create("Dialog", { pos : [300,300], text : ["95%","HTML"], autoSize: true});
+
+				//Create a title
+				title01 = app.create("Title", { pos : [400,50], text : ["Example"], box : true, fontColor : "black", fontSize : 22});
 
 				//Attach the ending (by default) of Link01 item to the Progress Item
 				link01.attach(progress01);
