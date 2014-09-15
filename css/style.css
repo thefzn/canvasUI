@@ -1,5 +1,17 @@
+@font-face {
+    font-family: 'Franklin Gothic';
+    src: url('../fonts/framdcn-webfont.eot');
+    src: url('../fonts/framdcn-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/framdcn-webfont.woff2') format('woff2'),
+         url('../fonts/framdcn-webfont.woff') format('woff'),
+         url('../fonts/framdcn-webfont.ttf') format('truetype'),
+         url('../fonts/framdcn-webfont.svg#franklin_gothic_medium_condRg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .htmlBlock{
-	font-family: Arial, sans-serif;
+	font-family: "Franklin Gothic", sans-serif;
 	padding: 10px;
 	background-color: #FFFFFF;
 }
