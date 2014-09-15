@@ -5,11 +5,18 @@ window.requestAnimFrame = (function(callback) {
 })();
 var webApp = webApp || {};
 webApp.App = function(canvasID){
-	var canvasID = canvasID || false;
+	var self = this;
+	this.canvasID = canvasID || false;
+	
+	window.onload = function(){
+		self.domLoaded();
+	}
+	/*
 	this.cnv = (typeof canvasID == "string") ? document.getElementById(canvasID) : canvasID;
 	if(!canvasID || !this.cnv)
 		return false;
-	
+	*/
+	this.preloadQueue = {};
 	this.pos = [0,0];
 	this.size = [300,300];
 	this.drawItems = {};
@@ -17,13 +24,18 @@ webApp.App = function(canvasID){
 	this.clickableItems = {};
 	this.turn = 0;
 	this.mousePos = [];
-	this.canvas = (typeof this.cnv.getContext != "undefined" ) ? this.cnv.getContext('2d'): false;
-	this.init();
 }
 webApp.App.prototype = new webApp.Collection("app");
 webApp.App.prototype.extend({
-	init: function(){
-		var self = this;
+	onLoad: function(){
+		console.log("load")
+		this.go();
+	},
+	domLoaded: function(){
+		var itm;
+		console.log(this.canvasID)
+		this.cnv = (typeof this.canvasID == "string") ? document.getElementById(this.canvasID) : this.canvasID;
+		this.canvas = (typeof this.cnv.getContext != "undefined" ) ? this.cnv.getContext('2d'): false;
 		if(!this.canvas){
 			console.log("Canvas not supported or error loading")
 			return false;
@@ -31,11 +43,16 @@ webApp.App.prototype.extend({
 		
 		this.canvas.setLineDash = this.canvas.setLineDash || function(){};
 		
+		
 		this.goFullScreen();
 		this.setListeners();
-	},
-	onLoad: function(){
-		this.go();
+		this.onReady();
+		
+		console.log("Preload Resources");
+		for(itm in this.preloadQueue){
+			this.addItem(itm,this.preloadQueue[itm]);
+		}
+		
 	},
 	go: function(){
 		var self = this,
@@ -106,6 +123,15 @@ webApp.App.prototype.extend({
 		this.cnv.style.position = "fixed";
 		this.cnv.style.zIndex = "100";
 		this.resize();
+	},
+	preload: function(config){
+		var conf = config || false,
+			self = this,
+			itm;
+		if(!conf)
+			return;
+		this.preloadQueue = conf;
+		console.log("Preload");
 	},
 	resources: function(config){
 		var conf = config || false,
