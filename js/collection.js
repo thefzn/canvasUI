@@ -8,7 +8,8 @@ webApp.Collection = function(type,game,onLoad){
 	this.length       = 0;
 	this.resources    = {
 		images: true,
-		audios: true
+		audios: true,
+		fonts: true
 	};
 }
 webApp.Collection.prototype = new webApp.Resource();
@@ -52,6 +53,11 @@ webApp.Collection.prototype.extend({
 				this.items[id].name = id;
 				this.loadResource(this.items[id]);
 				this.items[id].src = src;
+			break;
+			case "fonts":
+				this.items[id] = new webApp.Font(id,this.canvas);
+				this.loadResource(this.items[id]);
+				this.items[id].test();
 			break;
 			case "collections": case "app":
 				this.items[id] = new webApp.Collection(id);
