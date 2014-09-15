@@ -29,8 +29,8 @@ webApp.Group.prototype.extend({
 				return false;
 			
 			params.name = params.name || type + this.app.instances;
+			params.UID = type + "_" + params.name + "_" + this.app.instances;
 			item = new cons(params,this);
-			item.UID = type + "_" + item.name + "_" + this.app.instances;
 			item.setParent(parent);
 			this.items[item.UID] = item;
 			this.app.instances++;
