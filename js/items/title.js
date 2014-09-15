@@ -11,7 +11,6 @@ webApp.Title = function(params,parent){
 	this.fontSize = 13;
 	this.font = "Arial";
 	this.box = false;
-	this.attachments = false;
 	this.padding = 3;
 
 	this.Title(params,parent);
@@ -31,7 +30,7 @@ webApp.Title.prototype.extend({
 		this.font        = "'" + p.font + "'" || this.font;
 		this.fontColor   = p.fontColor || this.fontColor;
 		this.fontSize    = p.fontSize || this.fontSize;
-		this.box         = p.box || this.fontSize;
+		this.box         = p.box || this.box;
 		this.dir         = "T";
 		p.pos            = p.pos || this.pos;
 		p.color          = p.color || this.color;
@@ -110,11 +109,9 @@ webApp.Title.prototype.extend({
 		this.refresh = true;
 	},
 	beforeRedraw:function(){
-		var followMouse = this.attachments == "mouse";
-		if(this.isMoving || this.attachedIsMoving || this.refresh || followMouse){
+		if(this.isMoving || this.refresh){
 			this.refreshItems();
 			this.refresh = false;
-			this.attachedIsMoving = false;
 		}
 	},
 	refreshItems: function(){
