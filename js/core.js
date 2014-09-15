@@ -1,7 +1,6 @@
 window.requestAnimFrame = (function(callback) {
-	//return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
-	return function(callback) {
-	  window.setTimeout(callback, 1000/12);
+	return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function(callback) {
+	  window.setTimeout(callback, 1000/24);
 	};
 })();
 var webApp = webApp || {};
