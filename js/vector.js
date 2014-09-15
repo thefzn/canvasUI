@@ -24,7 +24,7 @@ webApp.Vector.prototype.extend({
 		this.tile     = params.tile || false;
 		this.size     = params.size || [10,10];
 		this.coords   = params.coords || [];
-		this.radius   = params.radius || 5;
+		this.radius   = (typeof params.radius == "number") ? params.radius : 5;
 		this.circle   = params.circle || {};
 		this.line     = params.line || false;
 		this.fill     = params.fill || false;
