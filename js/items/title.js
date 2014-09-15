@@ -44,7 +44,7 @@ webApp.Title.prototype.extend({
 			tmp = {
 					type:    "rectangle",
 					line: 	 {size:2},
-					radius:  1,
+					radius:  0,
 					color:   p.color,
 					size:    p.size,
 					pos:     p.pos,
@@ -79,7 +79,7 @@ webApp.Title.prototype.extend({
 			i = 0,
 			len, measure;
 		this.canvas.save();
-		this.canvas.font = "bold " + this.fontSize + "px " + this.font + ", Arial";
+		this.canvas.font = "bold " + this.fontSize + "px '" + this.font + "'";
 		for(len = text.length; i < len; i++){
 			measure = this.canvas.measureText(text[i]);
 			width = Math.max(measure.width,width);
