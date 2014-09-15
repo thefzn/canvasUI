@@ -3,6 +3,7 @@
 	<head>
 		<title>Canvas Tests</title>
 		<link href="css/style.css" media="all" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="js/font.js"></script>
 		<script type="text/javascript" src="js/object.js"></script>
 		<script type="text/javascript" src="js/resource.js"></script>
 		<script type="text/javascript" src="js/collection.js"></script>
@@ -20,15 +21,18 @@
 		<script type="text/javascript" src="js/items/textBlock.js"></script>
 		<script>
 			var app,link01,link02,progress01,dialog01,title01,html01;
-			function loadApp(){
-				app = new webApp.App("theApp");
+			app = new webApp.App("theApp");
 
-				//Preload Images
-				app.resources({
-					images: [
-						{name:"htmlIcon",src:"https://addons.opera.com/media/extensions/03/6003/1.1-rev1/icons/icon_64x64.png"},
-					]
-				});
+			//Preload Images
+			app.preload({
+				images: [
+					{name:"htmlIcon",src:"https://addons.opera.com/media/extensions/03/6003/1.1-rev1/icons/icon_64x64.png"},
+				],
+				fonts:[
+					"Franklin Gothic"
+				]
+			});
+			app.onReady = function(){
 
 				//Create a link object, horizontal (by default) with a customized bullet
 				//The "squared" property forces the link to use horizontal / vertical lines only
@@ -42,20 +46,27 @@
 				//Create another link object, vertical
 				link02 = app.create("Link", { pos : [300,300], end : [400,400], squared : true, vertical : true});
 
+				//Create another link object, vertical (doesn't need start/ending because it will be attached to other items on both sides)
+				link03 = app.create("Link", { vertical : true});
+
 				//Create a progress item, filled at 95% and with the preloaded image on the center
-				progress01 = app.create("ProgressItm", { pos : [300,100], progress: 95, image: "htmlIcon"});
+				progress01 = app.create("ProgressItm", { pos : [413,200], progress: 95, image: "htmlIcon"});
 
 				//Create a dialog item
-				dialog01 = app.create("Dialog", { pos : [300,300], text : ["95%","HTML"], autoSize: true});
+				dialog01 = app.create("Dialog", { pos : [300,300], text : ["DRAG","ME"], autoSize: true, font: "Franklin Gothic"});
 
 				//Create a title item
-				title01 = app.create("Title", { pos : [400,50], text : ["Example"], box : true, fontColor : "black", fontSize : 22});
+				title01 = app.create("Title", { pos : [400,50], text : "Some Title", box : true, fontColor : "black", fontSize : 22, font: "Franklin Gothic"});
 
 				//Create a html item
-				html01 = app.create("TextBlock", { pos : [100,250], title: "Example", text : ["Example","asdf asdfasdfa","2","large"], autoSize : true});
+				html01 = app.create("TextBlock", { pos : [200,250], autoSize : true, title: "HTML Text", text : ["This is some html text linked to a Canvas element, therefore, this is selectable text.","This text can also be stylized by CSS."]});
 
 				//Attach the ending (by default) of Link01 item to the Progress Item
-				link01.attach(progress01);
+				link01.attach(html01);
+
+				//Attach Link03 item to the Progress and Title items
+				link03.attach(progress01);
+				link03.attach(title01,true);
 
 				//Attach the beginning of Link02 item to the Progress Item
 				link02.attach(progress01,true);
@@ -66,11 +77,9 @@
 				//Turn the Progress Item into a draggable item
 				progress01.dragOn();
 			}
-			window.onload = loadApp;
 		</script>
 	</head>
 	<body>
-		<span style="position:fixed;z-index:-1">Drag the HTML Progress Item</span>
 		<canvas id="theApp" ></canvas>
 	</body>
 </html>
