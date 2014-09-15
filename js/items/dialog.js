@@ -177,7 +177,6 @@ webApp.Dialog.prototype.extend({
 				this.items[itm].coords = arrow.coords;
 			}
 			if(this.items[itm].type == "text"){
-				lineHeight = this.fontSize + this.arrowSize - 1;
 				this.items[itm].text = this.text;
 				this.items[itm].pos = this.getTextPos();
 			}
