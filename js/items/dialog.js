@@ -123,7 +123,10 @@ webApp.Dialog.prototype.extend({
 			i = 0,
 			len, measure;
 		this.canvas.save();
-		this.canvas.font = this.fontSize + "px " + this.font + ", Arial";
+		this.canvas.font = this.fontSize + "px Arial"
+		console.log(this.canvas.font,text[0],this.canvas.measureText(text[0]).width);
+		this.canvas.font = this.fontSize + "px '" + this.font + "'";
+		console.log(this.canvas.font,text[0],this.canvas.measureText(text[0]).width);
 		for(len = text.length; i < len; i++){
 			measure = this.canvas.measureText(text[i]);
 			width = Math.max(measure.width,width);
