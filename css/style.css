@@ -1,0 +1,19 @@
+.htmlBlock{
+	font-family: Arial, sans-serif;
+	padding: 10px;
+	background-color: #FFFFFF;
+}
+.htmlBlock h2{
+	color: #C09365;
+	font-size: 14px;
+	line-height:1.2;
+	margin: 0;
+	padding: 0;
+}
+.htmlBlock p{
+	color: #282626;
+	font-size: 10px;
+	line-height:1.2;
+	margin: 5px 0;
+	padding: 0;
+}
