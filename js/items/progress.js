@@ -103,7 +103,7 @@ webApp.ProgressItm.prototype.extend({
 	},
 	calcProgress: function(){
 		var res = 0,
-			ease = 4,
+			ease = 8,
 			x,y;
 		if(!this.isAnimated)
 			return false;
