@@ -1,3 +1,4 @@
+"use strict";
 var webApp = webApp || {};
 webApp.Dialog = function(params,parent){
 	this.size = [100,25];
@@ -81,7 +82,7 @@ webApp.Dialog.prototype.extend({
 			}
 			elements.text.push(tmp);
 		}
-		this.Group(elements,p,parent);
+		this.Interactive(elements,p,parent);
 		if(this.autoSize){
 			this.getAutoSize();
 		}
