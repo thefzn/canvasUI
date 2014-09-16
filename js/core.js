@@ -28,27 +28,21 @@ webApp.App = function(canvasID){
 webApp.App.prototype = new webApp.Collection("app");
 webApp.App.prototype.extend({
 	onLoad: function(){
-		console.log("load")
+		this.onReady();
 		this.go();
 	},
 	domLoaded: function(){
 		var itm;
-		console.log(this.canvasID)
 		this.cnv = (typeof this.canvasID == "string") ? document.getElementById(this.canvasID) : this.canvasID;
 		this.canvas = (typeof this.cnv.getContext != "undefined" ) ? this.cnv.getContext('2d'): false;
 		if(!this.canvas){
-			console.log("Canvas not supported or error loading")
 			return false;
 		}
-		
 		this.canvas.setLineDash = this.canvas.setLineDash || function(){};
-		
 		
 		this.goFullScreen();
 		this.setListeners();
-		this.onReady();
 		
-		console.log("Preload Resources");
 		for(itm in this.preloadQueue){
 			this.addItem(itm,this.preloadQueue[itm]);
 		}
@@ -131,7 +125,6 @@ webApp.App.prototype.extend({
 		if(!conf)
 			return;
 		this.preloadQueue = conf;
-		console.log("Preload");
 	},
 	resources: function(config){
 		var conf = config || false,
