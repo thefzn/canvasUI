@@ -50,7 +50,7 @@
 				link03 = app.create("Link", { vertical : true});
 
 				//Create a progress item, filled at 95% and with the preloaded image on the center
-				progress01 = app.create("ProgressItm", { pos : [413,200], progress: 95, image: "htmlIcon"});
+				progress01 = app.create("ProgressItem", { pos : [413,200], progress: 95, image: "htmlIcon"});
 
 				//Create a dialog item
 				dialog01 = app.create("Dialog", { pos : [300,300], text : ["DRAG","ME"], autoSize: true, font: "Franklin Gothic"});
@@ -75,7 +75,13 @@
 				dialog01.attach(progress01,"R");
 
 				//Turn the Progress Item into a draggable item
-				progress01.dragOn();
+				progress01.drag();
+				
+				//Turn the Title item clickable, it will move to a random position on the same y axis
+				title01.onClick = function(self){
+					var rnd = Math.round(Math.random()*500);
+					self.moveTo(rnd);
+				};
 			}
 		</script>
 	</head>
