@@ -1,36 +1,54 @@
+"use strict";
 var webApp = webApp || {};
-webApp.Interactive = function (params,parent){
-	p = params || false;
+webApp.Interactive = function (items,params,parent){
+	var p = params || false;
 	
-	this.drag = false;
+	this.dragEnabled = false;
 	this.dragging = false;
 	this.initial = [0,0];
 	this.mInitial = [0,0];
-	
 	if(p){
-		this.Interactive(p,parent);
+		this.Interactive(items,p,parent);
 	}
 }
 webApp.Interactive.prototype = new webApp.Group();
 webApp.Interactive.prototype.extend({
-	Interactive:function(p,parent){
-		var p = p || {};
-		this.drag = p.drag || false;
+	Interactive:function(items,p,parent){
+		var p = p || false;
+		this.dragEnabled = p.dragEnabled || false;
 		
-		this.Group(p,parent);
-	},
-	dragOn: function(){
+		this.Group(items,p,parent);
+		
 		if(this.app){
-			if(this.drag){
-				this.drag = false;
-				this.app.clickableItems[this.UID] = false;
-			}else{
-				this.drag = true;
-				this.app.clickableItems[this.UID] = this;
+			this.app.clickableItems[this.UID] = true;
+		}
+	},
+	drag: function(){
+		if(this.dragEnabled){
+			this.dragEnabled = false;
+		}else{
+			this.dragEnabled = true;
+		}
+	},
+	click: function(){
+		if( typeof this.onClick == "function"){
+			this.onClick(this);
+		}
+	},
+	clickDown:function(pos){
+		if(this.checkClick(pos)){
+			if(this.dragEnabled){
+				this.initializeDrag();
 			}
 		}
 	},
-	dragStart: function(){
+	clickUp:function(pos){
+		this.terminateDrag();
+		if(this.checkClick(pos)){
+			this.onClick(this);
+		}
+	},
+	initializeDrag: function(){
 		if(!this.app || this.isMoving || this.dragging)
 			return false;
 		this.app.cnv.style.cursor = "move";
@@ -39,21 +57,11 @@ webApp.Interactive.prototype.extend({
 		this.dragging = true;
 		
 	},
-	dragEnd: function(){
+	terminateDrag: function(){
 		if(!this.app || !this.dragging)
 			return false;
 		this.app.cnv.style.cursor = "default";
 		this.dragging = false;
-	},
-	clickDown:function(pos){
-		if(pos[0] >= this.pos[0] && pos[0] <= this.pos[0] + this.size[0]){
-			if(pos[1] >= this.pos[1] && pos[1] <= this.pos[1] + this.size[1]){
-				this.dragStart();
-			}
-		}
-	},
-	clickUp:function(pos){
-		this.dragEnd();
 	},
 	calcDrag: function(){
 		var displacement = [],
@@ -67,9 +75,20 @@ webApp.Interactive.prototype.extend({
 		newPos[1] = this.initial[1] + displacement[1];
 		this.moveTo(newPos[0],newPos[1]);
 	},
+	checkClick: function(pos){
+		var res = false
+		if(pos[0] >= this.pos[0] && pos[0] <= this.pos[0] + this.size[0]){
+			if(pos[1] >= this.pos[1] && pos[1] <= this.pos[1] + this.size[1]){
+				res = true;
+			}
+		}
+		return res;
+	},
 	eachFrame: function(){
 		if(this.dragging){
 			this.calcDrag();
 		}
-	}
+	},
+	// Placeholder
+	onClick: function(){}
 });
