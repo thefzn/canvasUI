@@ -152,10 +152,12 @@ webApp.App.prototype.extend({
 			down = down || false,
 			itm;
 		for(itm in this.clickableItems){
-			if(down){
-				this.clickableItems[itm].clickDown(pos);
-			}else{
-				this.clickableItems[itm].clickUp(pos);
+			if(this.clickableItems[itm]){
+				if(down){
+					this.clickableItems[itm].clickDown(pos);
+				}else{
+					this.clickableItems[itm].clickUp(pos);
+				}
 			}
 		} 
 	},
