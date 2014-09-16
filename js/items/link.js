@@ -22,7 +22,7 @@ webApp.Link = function(params,parent){
 	this.Link(params,parent);
 }
 
-webApp.Link.prototype = new webApp.Group();
+webApp.Link.prototype = new webApp.Interactive();
 webApp.Link.prototype.extend({
 	Link: function(p,parent){
 		var p = p || {},
