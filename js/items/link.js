@@ -1,3 +1,4 @@
+"use strict";
 var webApp = webApp || {};
 webApp.Link = function(params,parent){
 	this.style = "dashed";
@@ -90,7 +91,7 @@ webApp.Link.prototype.extend({
 				elements.vector.push(tmp);
 			}
 		}
-		this.Group(elements,p,parent);
+		this.Interactive(elements,p,parent);
 		
 		this.checkAttachments();
 		if(this.squared){
@@ -189,7 +190,7 @@ webApp.Link.prototype.extend({
 		var s = this.pos.slice(),
 			e = this.end.slice(),
 			axis = (this.vertical) ? 1 : 0,
-			cAxis = (axis == 1) ? 0 : 1.
+			cAxis = (axis == 1) ? 0 : 1,
 			padding = 10,
 			m = (s[axis] < e[axis]) ? e[axis] - this.width * padding : e[axis] + this.width * padding,
 			p1 = [],
