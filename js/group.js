@@ -1,3 +1,4 @@
+"use strict";
 var webApp = webApp || {};
 webApp.Group = function (){
 	this.items = {};
