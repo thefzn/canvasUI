@@ -1,5 +1,6 @@
+"use strict";
 var webApp = webApp || {};
-webApp.ProgressItm = function(params,parent){
+webApp.ProgressItem = function(params,parent){
 	this.style = "circle";
 	this.width = 100;
 	this.pos = [0,0];
@@ -14,12 +15,12 @@ webApp.ProgressItm = function(params,parent){
 	this.aData = {};
 	this.isAnimated = false;
 	
-	this.ProgressItm(params,parent);
+	this.ProgressItem(params,parent);
 }
 
-webApp.ProgressItm.prototype = new webApp.Interactive();
-webApp.ProgressItm.prototype.extend({
-	ProgressItm: function(p,parent){
+webApp.ProgressItem.prototype = new webApp.Interactive();
+webApp.ProgressItem.prototype.extend({
+	ProgressItem: function(p,parent){
 		var p = p || {},
 			coords = [],
 			i = 0,
@@ -76,7 +77,7 @@ webApp.ProgressItm.prototype.extend({
 			}
 			elements.drawable.push(tmp);
 		}
-		this.Group(elements,p,parent);
+		this.Interactive(elements,p,parent);
 		this.image = this.validateImage(p.image);
 		this.refreshItems();
 		if(initP){
