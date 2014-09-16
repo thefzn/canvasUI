@@ -1,3 +1,4 @@
+"use strict";
 var webApp = webApp || {};
 webApp.TextBlock = function(params,parent){
 	this.size = [100,100];
@@ -55,7 +56,7 @@ webApp.TextBlock.prototype.extend({
 				}
 			elements.vector.push(tmp);
 		}
-		this.Group(elements,p,parent);
+		this.Interactive(elements,p,parent);
 		if(this.autoSize){
 			this.setSizeListener();
 		}
