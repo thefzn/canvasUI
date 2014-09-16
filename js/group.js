@@ -2,10 +2,10 @@ var webApp = webApp || {};
 webApp.Group = function (){
 	this.items = {};
 }
-webApp.Group.prototype = new webApp.Draggable();
+webApp.Group.prototype = new webApp.Drawable();
 webApp.Group.prototype.extend({
 	Group: function(items,p,parent){
-		this.Draggable(p,parent);
+		this.Drawable(p,parent);
 		this.items = {};
 		
 		for(var itm in items){
