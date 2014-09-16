@@ -1,5 +1,5 @@
 var webApp = webApp || {};
-webApp.Draggable = function (params,parent){
+webApp.Interactive = function (params,parent){
 	p = params || false;
 	
 	this.drag = false;
@@ -8,16 +8,16 @@ webApp.Draggable = function (params,parent){
 	this.mInitial = [0,0];
 	
 	if(p){
-		this.Draggable(p,parent);
+		this.Interactive(p,parent);
 	}
 }
-webApp.Draggable.prototype = new webApp.Drawable();
-webApp.Draggable.prototype.extend({
-	Draggable:function(p,parent){
+webApp.Interactive.prototype = new webApp.Group();
+webApp.Interactive.prototype.extend({
+	Interactive:function(p,parent){
 		var p = p || {};
 		this.drag = p.drag || false;
 		
-		this.Drawable(p,parent);
+		this.Group(p,parent);
 	},
 	dragOn: function(){
 		if(this.app){
