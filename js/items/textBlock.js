@@ -13,7 +13,7 @@ webApp.TextBlock = function(params,parent){
 	this.TextBlock(params,parent);
 }
 
-webApp.TextBlock.prototype = new webApp.Group();
+webApp.TextBlock.prototype = new webApp.Interactive();
 webApp.TextBlock.prototype.extend({
 	TextBlock: function(p,parent){
 		var p = p || {},
