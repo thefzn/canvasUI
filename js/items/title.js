@@ -1,3 +1,4 @@
+"use strict";
 var webApp = webApp || {};
 webApp.Title = function(params,parent){
 	this.size = [10,10];
@@ -67,7 +68,7 @@ webApp.Title.prototype.extend({
 			}
 			elements.text.push(tmp);
 		}
-		this.Group(elements,p,parent);
+		this.Interactive(elements,p,parent);
 		this.getAutoSize();
 		this.refresh = true;
 	},
