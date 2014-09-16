@@ -28,7 +28,6 @@ webApp.Font.prototype = {
 			if(this.triesLeft <= 0){
 				console.log("Error loading " + this.font + " font");
 			}
-			console.log("FontLoaded")
 			this.onLoad();
 		}
 		this.triesLeft--;
