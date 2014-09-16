@@ -1,3 +1,4 @@
+"use strict";
 window.requestAnimFrame = (function(callback) {
 	return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function(callback) {
 	  window.setTimeout(callback, 1000/24);
@@ -154,9 +155,9 @@ webApp.App.prototype.extend({
 		for(itm in this.clickableItems){
 			if(this.clickableItems[itm]){
 				if(down){
-					this.clickableItems[itm].clickDown(pos);
+					this.drawItems[itm].clickDown(pos);
 				}else{
-					this.clickableItems[itm].clickUp(pos);
+					this.drawItems[itm].clickUp(pos);
 				}
 			}
 		} 
