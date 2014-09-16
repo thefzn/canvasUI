@@ -17,7 +17,7 @@ webApp.ProgressItm = function(params,parent){
 	this.ProgressItm(params,parent);
 }
 
-webApp.ProgressItm.prototype = new webApp.Group();
+webApp.ProgressItm.prototype = new webApp.Interactive();
 webApp.ProgressItm.prototype.extend({
 	ProgressItm: function(p,parent){
 		var p = p || {},
