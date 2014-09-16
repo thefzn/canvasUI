@@ -16,7 +16,7 @@ webApp.Title = function(params,parent){
 	this.Title(params,parent);
 }
 
-webApp.Title.prototype = new webApp.Group();
+webApp.Title.prototype = new webApp.Interactive();
 webApp.Title.prototype.extend({
 	Title: function(p,parent){
 		var p = p || {},
