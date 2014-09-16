@@ -215,12 +215,19 @@ webApp.Dialog.prototype.extend({
 	},
 	attach: function(itm,dir){
 		var i = itm || false,
-			p = p || "T",
+			p = dir || "T",
+			valid = {
+				T: true,
+				B: true,
+				L: true,
+				R: true
+			}
 			self = this;
-		if(!i)
+		p = p.toUpperCase();
+		if(!i || (p != "T" && p != "B" && p != "L" && p != "R"))
 			return false;
 		this.refresh = true;
-		this.dir = dir;
+		this.dir = p;
 		if(itm instanceof webApp.Object){
 			this.attachments = itm;
 			this.attachments.links[this.UID] = self;
