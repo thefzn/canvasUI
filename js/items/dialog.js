@@ -21,7 +21,7 @@ webApp.Dialog = function(params,parent){
 	this.Dialog(params,parent);
 }
 
-webApp.Dialog.prototype = new webApp.Group();
+webApp.Dialog.prototype = new webApp.Interactive();
 webApp.Dialog.prototype.extend({
 	Dialog: function(p,parent){
 		var p = p || {},
