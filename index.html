@@ -12,8 +12,8 @@
 		<script type="text/javascript" src="js/vector.js"></script>
 		<script type="text/javascript" src="js/text.js"></script>
 		<script type="text/javascript" src="js/html.js"></script>
-		<script type="text/javascript" src="js/draggable.js"></script>
 		<script type="text/javascript" src="js/group.js"></script>
+		<script type="text/javascript" src="js/interactive.js"></script>
 		<script type="text/javascript" src="js/items/link.js"></script>
 		<script type="text/javascript" src="js/items/progress.js"></script>
 		<script type="text/javascript" src="js/items/dialog.js"></script>
@@ -23,10 +23,10 @@
 			var app,link01,link02,progress01,dialog01,title01,html01;
 			app = new webApp.App("theApp");
 
-			//Preload Images
+			//Preload Resources
 			app.preload({
 				images: [
-					{name:"htmlIcon",src:"https://addons.opera.com/media/extensions/03/6003/1.1-rev1/icons/icon_64x64.png"},
+					{name:"htmlIcon",src:"img/icon_01.png"},
 				],
 				fonts:[
 					"Franklin Gothic"
@@ -64,14 +64,14 @@
 				//Attach the ending (by default) of Link01 item to the Progress Item
 				link01.attach(html01);
 
-				//Attach Link03 item to the Progress and Title items
+				//Attach Link03 item to the Progress (end) and Title (start) items
 				link03.attach(progress01);
 				link03.attach(title01,true);
 
 				//Attach the beginning of Link02 item to the Progress Item
 				link02.attach(progress01,true);
 
-				//Attach the dialog to the bottom of the Progress Item
+				//Attach the dialog to the right of the Progress Item
 				dialog01.attach(progress01,"R");
 
 				//Turn the Progress Item into a draggable item
