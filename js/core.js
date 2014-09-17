@@ -56,7 +56,7 @@ webApp.App.prototype.extend({
 			return false;
 		}
 		this.clear();
-		this.refresh(this.drawItems);
+		this.refresh();
 		
 		window.requestAnimFrame(function() {
 			self.go();
@@ -74,13 +74,11 @@ webApp.App.prototype.extend({
 		
 	},
 	refresh: function(target){
-		var t = (typeof target == "object") ? target : {},
+		var t = this.drawItems || {},
 			i,itm;
 		for(i in t){
 			itm = t[i];
-			if(itm instanceof webApp.Drawable){
-				itm.go();
-			}
+			itm.go();
 		}
 	},
 	create: function(id,params){
@@ -94,11 +92,13 @@ webApp.App.prototype.extend({
 			return false;
 		this.instances++;
 		
-		
 		newP.name = newP.name || className + "_" + this.instances;
 		newP.UID = type + "_" + newP.name + "_" + this.instances;
 		item = new cons(newP,this);
-		this.drawItems[newP.UID] = item;
+		
+		if(item instanceof webApp.Object){
+			this.drawItems[newP.UID] = item;
+		}
 		this.instances++;
 		return item;
 	},
