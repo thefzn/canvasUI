@@ -1,6 +1,7 @@
+"use strict";
 var webApp = webApp || {};
 webApp.HTML = function (params,parent){
-	p = params || false;
+	var p = params || false;
 	if(p){
 		this.HTML(p,parent);
 	}
