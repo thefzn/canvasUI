@@ -1,5 +1,6 @@
+"use strict";
 var webApp = webApp || {};
-webApp.Resource = function (canvas,parent,params){
+webApp.Resource = function (){
 	this.loadingQueue = 0;
 	this.pos = [0,0];
 }
@@ -18,7 +19,7 @@ webApp.Resource.prototype.extend({
 	loadResource: function(res){
 		var self = this;
 		this.loadingQueue++;
-		if(res instanceof webApp.Resource){
+		if(res instanceof webApp.Resource || res instanceof webApp.Font){
 			res.onLoad = function(){
 				self.resourceLoaded();
 			}
@@ -27,6 +28,5 @@ webApp.Resource.prototype.extend({
 				self.resourceLoaded();
 			}, false);
 		}
-		
 	}
 });
