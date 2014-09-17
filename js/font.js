@@ -1,3 +1,4 @@
+"use strict";
 var webApp = webApp || {};
 webApp.Font = function (font,canvas){
 	this.canvas = canvas;
