@@ -1,3 +1,4 @@
+"use strict";
 var webApp = webApp || {};
 webApp.Collection = function(type,game,onLoad){
 	this.type         = type || "other";
@@ -100,6 +101,7 @@ webApp.Collection.prototype.extend({
 			newP = params || {},
 			parent = (this.type == "app") ? this : this.parent,
 			className,def,p,type,cons,item;
+		console.log("generate")
 		p = this.get(id);
 		type = (id instanceof Array) ? id[0] : id;
 		className = this.getClassName(type);
