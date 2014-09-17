@@ -24,13 +24,13 @@ This script uses canvas, so, you'll need to use a browser that supports HTML5:
   - Text
   - HTML
   - Drawable
-    - Group
-      - Interactive
-        - Link
-        - Progress
-        - Dialog
-        - Title
-        - HtmlBlock
-        - Header
-        - Button
-        - Menu
+  - Group
+    - Interactive
+      - Link
+      - Progress
+      - Dialog
+      - Title
+      - HtmlBlock
+      - Header
+      - Button
+      - Menu
