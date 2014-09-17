@@ -1,6 +1,7 @@
+"use strict";
 var webApp = webApp || {};
 webApp.Vector = function (params,parent){
-	p = params || false;
+	var p = params || false;
 	if(p){
 		this.Vector(p,parent);
 	}
@@ -68,7 +69,7 @@ webApp.Vector.prototype.extend({
 	redraw: function(){
 		if(!this.canvas)
 			return false;
-		var adjust,style,size,offset,map;
+		var adjust,style,size,offset,map,space,pat;
 		this.canvas.save();
 		if(this.opacity != 1){
 			this.canvas.globalAlpha = (this.parent) ? this.opacity * this.parent.opacity : this.opacity;
