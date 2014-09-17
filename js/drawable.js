@@ -1,6 +1,7 @@
+"use strict";
 var webApp = webApp || {};
 webApp.Drawable = function (params,parent){
-	p = params || false;
+	var p = params || false;
 	if(p){
 		this.Drawable(p,parent);
 	}
