@@ -19,6 +19,7 @@
 		<script type="text/javascript" src="js/items/dialog.js"></script>
 		<script type="text/javascript" src="js/items/title.js"></script>
 		<script type="text/javascript" src="js/items/textBlock.js"></script>
+		<script type="text/javascript" src="js/items/header.js"></script>
 		<script>
 			var app,link01,link02,progress01,dialog01,title01,html01;
 			app = new webApp.App("theApp");
@@ -55,7 +56,10 @@
 				dialog01 = app.create("Dialog", { pos : [300,300], text : ["DRAG","ME"], autoSize: true, font: "Franklin Gothic"});
 
 				//Create a title item
-				title01 = app.create("Title", { pos : [400,50], text : "Some Title", box : true, fontColor : "black", fontSize : 22, font: "Franklin Gothic"});
+				title01 = app.create("Title", { pos : [400,50], text : "Some Title", box : true, fontSize : 22, font: "Franklin Gothic"});
+
+				//Create a header item
+				header01 = app.create("Header", { pos : 200, text : ["Some Title","example"], fontSize : 36, font: "Franklin Gothic"});
 
 				//Create a html item
 				html01 = app.create("TextBlock", { pos : [200,250], autoSize : true, title: "HTML Text", text : ["This is some html text linked to a Canvas element, therefore, this is selectable text.","This text can also be stylized by CSS."]});
