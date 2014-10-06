@@ -17,7 +17,7 @@ webApp.Dialog = function(params,parent){
 	this.font = "Arial";
 	this.attachedIsMoving = false;
 	this.refresh = false;
-	this.attachments = false
+	this.attachments = false;
 
 	this.Dialog(params,parent);
 }
