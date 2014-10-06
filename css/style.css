@@ -9,7 +9,7 @@
     font-weight: normal;
     font-style: normal;
 }
-
+/* Styles for the htmlBlock */
 .htmlBlock{
 	font-family: "Franklin Gothic", sans-serif;
 	padding: 10px;
@@ -27,5 +27,40 @@
 	font-size: 10px;
 	line-height:1.2;
 	margin: 5px 0;
+	padding: 0;
+}
+/* Styles for the contactList */
+.htmlContacts,
+.htmlContacts li {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: block;
+	overflow: hidden;
+}
+.htmlContacts li {
+	height: 25px;
+}
+.htmlContacts .contactImage{
+	float:right;
+	margin: 0 0 0 10px;
+}
+.htmlContacts a{
+	color: #BB3531;
+	line-height: 20px;
+	float: right;
+	font-family: "Franklin Gothic", sans-serif;
+	font-size: 16px;
+	font-weight: normal;
+	text-decoration: none;
+}
+.htmlContacts p{
+	color: #282626;
+	line-height: 20px;
+	float: right;
+	font-family: "Franklin Gothic", sans-serif;
+	font-size: 16px;
+	font-weight: normal;
+	margin: 0;
 	padding: 0;
 }
