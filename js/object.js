@@ -4,6 +4,7 @@ webApp.Object = function (){
 	this.app = false;
 	this.aData = {};
 	this.isMoving = false;
+	this.appResizing = false;
 	this.links = {};
 };
 webApp.Object.prototype = {
