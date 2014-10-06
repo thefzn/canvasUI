@@ -20,21 +20,27 @@
 		<script type="text/javascript" src="js/items/title.js"></script>
 		<script type="text/javascript" src="js/items/textBlock.js"></script>
 		<script type="text/javascript" src="js/items/header.js"></script>
+		<script type="text/javascript" src="js/items/contactList.js"></script>
 		<script>
 			var app,link01,link02,progress01,dialog01,title01,html01;
 			app = new webApp.App("theApp");
 
-			//Preload Resources
+			//Preload resources (fonts and images) before start running the app
 			app.preload({
 				images: [
 					{name:"htmlIcon",src:"img/icon_01.png"},
+					{name:"conGmail",src:"img/contactIcn_g.png"},
+					{name:"conBehance",src:"img/contactIcn_be.png"},
+					{name:"conGit",src:"img/contactIcn_git.png"},
+					{name:"conLinked",src:"img/contactIcn_in.png"}
 				],
 				fonts:[
 					"Franklin Gothic"
 				]
 			});
+			
+			//Once the resources are loaded, create the interface items
 			app.onReady = function(){
-
 				//Create a link object, horizontal (by default) with a customized bullet
 				//The "squared" property forces the link to use horizontal / vertical lines only
 				link01 = app.create("Link", { pos:[100,100], end:[200,200], squared:true,
@@ -52,9 +58,6 @@
 				//Create a progress item, filled at 95% and with the preloaded image on the center
 				progress01 = app.create("ProgressItem", { pos : [413,200], progress: 95, image: "htmlIcon"});
 
-				//Create a dialog item
-				dialog01 = app.create("Dialog", { pos : [300,300], text : ["DRAG","ME"], autoSize: true, font: "Franklin Gothic"});
-
 				//Create a title item
 				title01 = app.create("Title", { pos : [400,50], text : "Some Title", box : true, fontSize : 22, font: "Franklin Gothic"});
 
@@ -63,6 +66,39 @@
 
 				//Create a html item
 				html01 = app.create("TextBlock", { pos : [200,250], autoSize : true, title: "HTML Text", text : ["This is some html text linked to a Canvas element, therefore, this is selectable text.","This text can also be stylized by CSS."]});
+
+				//Create a Contact List item
+				contact01 = app.create("ContactList", { pos : [500,50], size : [170,300], contacts:[
+					{
+						text: "GitHub Proyects",
+						image:"conGit",
+						link: "http://github.com/fznwebdesign"
+					},
+					{
+						text: "Behance Portfolio",
+						image:"conBehance",
+						link: "http://behance.net/thefzn"
+					},
+					{
+						text: "LinkedIn Profile",
+						image:"conLinked",
+						link: "http://goo.gl/yW29Dv"
+					},
+					{
+						text: "Send an Email",
+						image: "conGmail",
+						link: "fzn.webdesign@gmail.com"
+					}
+				]});
+
+				//Create a dialog item
+				dialog01 = app.create("Dialog", { pos : [300,300], text : ["DRAG","ME"], autoSize: true, font: "Franklin Gothic"});
+
+				//Create a dialog item
+				dialog02 = app.create("Dialog", { pos : [300,300], text : "CLICK ME", autoSize: true, font: "Franklin Gothic"});
+
+				//Create a dialog item
+				dialog03 = app.create("Dialog", { pos : [300,300], text : ["RESIZE THE SCREEN","CLICKABLE ITEMS"], autoSize: true, font: "Franklin Gothic"});
 
 				//Attach the ending (by default) of Link01 item to the Progress Item
 				link01.attach(html01);
@@ -77,12 +113,21 @@
 				//Attach the dialog to the right of the Progress Item
 				dialog01.attach(progress01,"R");
 
+				//Attach the dialog to the top of the Title Item
+				dialog02.attach(title01,"T");
+
+				//Attach the dialog to the bottom of the ContactList Item
+				dialog03.attach(contact01,"B");
+
 				//Turn the Progress Item into a draggable item
 				progress01.drag();
+
+				//Attach the contacts to the Top-Right corner
+				contact01.attach("T","R")
 				
 				//Turn the Title item clickable, it will move to a random position on the same y axis
 				title01.onClick = function(self){
-					var rnd = Math.round(Math.random()*500);
+					var rnd = Math.round(Math.random()*100) + 400;
 					self.moveTo(rnd);
 				};
 			}
