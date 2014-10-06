@@ -23,6 +23,7 @@ webApp.App = function(canvasID){
 	this.drawItems = {};
 	this.start = true;
 	this.clickableItems = {};
+	this.resizing = false;
 	this.turn = 0;
 	this.mousePos = [];
 }
@@ -78,8 +79,12 @@ webApp.App.prototype.extend({
 			i,itm;
 		for(i in t){
 			itm = t[i];
+			if(this.resizing){
+				itm.appResizing = true;
+			}
 			itm.go();
 		}
+		this.resizing = false;
 	},
 	create: function(id,params){
 		var id = id || false,
@@ -145,7 +150,7 @@ webApp.App.prototype.extend({
 		document.onmouseup = function(event){self.handleClick(event,false)};
 	},
 	handleMouseMove:function(event) {
-		event = event || window.event; // IE-ism
+		event = event || window.event;
 		this.mousePos = [Math.round(event.clientX),Math.round(event.clientY)];
 	},
 	handleClick: function(event,down){
@@ -168,5 +173,6 @@ webApp.App.prototype.extend({
 		this.cnv.width = w;
 		this.cnv.height = h;
 		this.size = [w,h];
+		this.resizing = true;
 	}
 });
