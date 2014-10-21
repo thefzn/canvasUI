@@ -32,9 +32,10 @@ webApp.Drawable.prototype.extend({
 	redraw: function(){
 		if(!this.canvas)
 			return false;
-		var posX,posY,pat,i,len,coord,style,size,offset,map;
+		var parentOp = (this.parent && typeof this.parent.opacity) ? this.parent.opacity : 1,
+			posX,posY,pat,i,len,coord,style,size,offset,map;
 		this.canvas.save();
-		if(this.opacity != 1){
+		if(this.opacity != 1 || parentOp != 1){
 			this.canvas.globalAlpha = (this.parent) ? this.opacity * this.parent.opacity : this.opacity;
 		}
 		if(this.parent && !this.fixed){
