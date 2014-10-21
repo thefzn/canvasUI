@@ -4,12 +4,14 @@ webApp.Object = function (){
 	this.app = false;
 	this.aData = {};
 	this.isMoving = false;
+	this.isFadeing = false;
 	this.appResizing = false;
 	this.links = {};
 };
 webApp.Object.prototype = {
 	go: function(){
 		this.calcPosition();
+		this.calcFadeing();
 		this.beforeRedraw();
 		this.eachFrame();
 		this.redraw();
@@ -71,6 +73,16 @@ webApp.Object.prototype = {
 		this.aData.callback = c; 
 		this.aData.pos = [x,y];
 	},
+	fadeIn: function(callback){
+		this.isFadeing = true;
+		this.aData.fadeCallback = callback || function(){};
+		this.aData.opacity = 1;
+	},
+	fadeOut: function(callback){
+		this.isFadeing = true;
+		this.aData.fadeCallback = callback || function(){};
+		this.aData.opacity = 0;
+	},
 	calcPosition: function(){
 		var res = [],
 			ease = 4,
@@ -91,6 +103,25 @@ webApp.Object.prototype = {
 		}else{
 			this.pos = res;
 			this.onMove(this);
+		}
+	},
+	calcFadeing: function(){
+		var res = 0,
+			ease = 5,
+			x,y;
+		if(!this.isFadeing)
+			return false;
+		if(this.opacity == this.aData.opacity){
+			this.isFadeing = false;
+			return false;
+		}
+		res = this.opacity + (this.aData.opacity - this.opacity) / ease;
+		res = Math.round(res * 100) / 100;
+		if(res == this.opacity){
+			this.opacity = this.aData.opacity;
+			this.aData.fadeCallback(this);
+		}else{
+			this.opacity = res;
 		}
 	},
 	extend: function(obj){
