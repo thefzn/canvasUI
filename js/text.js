@@ -35,11 +35,12 @@ webApp.Text.prototype.extend({
 	redraw: function(){
 		var i = 0,
 			s = this.size + this.spacing,
+			parentOp = (this.parent && typeof this.parent.opacity) ? this.parent.opacity : 1,
 			text, len, w, c, style;
 		if(!this.canvas)
 			return false;
 		this.canvas.save();
-		if(this.opacity != 1){
+		if(this.opacity != 1 || parentOp != 1){
 			this.canvas.globalAlpha = (this.parent) ? this.opacity * this.parent.opacity : this.opacity;
 		}
 		style = (this.style) ? this.style + " " : "";
