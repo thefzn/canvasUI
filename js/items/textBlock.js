@@ -111,7 +111,7 @@ webApp.TextBlock.prototype.extend({
 		}
 	},
 	beforeRedraw:function(){
-		if(this.isMoving || this.refresh){
+		if(this.isMoving || this.isFadeing || this.refresh){
 			this.refreshItems();
 			this.refresh = false;
 		}
