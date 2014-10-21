@@ -158,7 +158,7 @@ webApp.Dialog.prototype.extend({
 	},
 	beforeRedraw:function(){
 		var followMouse = this.attachments == "mouse";
-		if(this.isMoving || this.attachedIsMoving || this.refresh || followMouse){
+		if(this.isMoving || this.isFadeing || this.attachedIsMoving || this.refresh || followMouse){
 			this.checkAttachments();
 			this.refreshItems();
 			this.refresh = false;
