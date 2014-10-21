@@ -85,7 +85,7 @@ webApp.ProgressItem.prototype.extend({
 		}
 	},
 	beforeRedraw: function(){
-		if(this.isMoving || !this.loaded || this.refresh || this.isAnimated){
+		if(this.isMoving || this.isFadeing || !this.loaded || this.refresh || this.isAnimated){
 			if(this.isAnimated){
 				this.calcProgress();
 				this.progressValues = false;
@@ -122,7 +122,7 @@ webApp.ProgressItem.prototype.extend({
 		}
 	},
 	getImageData: function(){
-		var coords = [this.pos[0] + (this.width / 2),this.pos[1] + (this.width / 2)],
+		var coords = [(this.width / 2),(this.width / 2)],
 			res = {
 				pos: coords,
 				size: [10,10]
@@ -159,19 +159,20 @@ webApp.ProgressItem.prototype.extend({
 	refreshItems: function(){
 		var count = 0,
 			coords = [this.pos[0] + (this.width / 2),this.pos[1] + (this.width / 2)],
-			itm,imgData;
+			itm,item,imgData;
 		for(itm in this.items){
-			if(this.items[itm].type == "line"){}
-			if(this.items[itm].type == "image"){
+			item = this.items[itm]
+			if(item.type == "line"){}
+			if(item.type == "image"){
 				imgData = this.getImageData();
-				this.items[itm].pos = imgData.pos;
-				this.items[itm].size = imgData.size;
+				item.pos = imgData.pos;
+				item.size = imgData.size;
 			}
-			if(this.items[itm].type == "circle"){
-				this.items[itm].coords = coords;
+			if(item.type == "circle"){
+				item.coords = coords;
 				if(!this.progressValues){
 					if(count == 1){
-						this.items[itm].circle = this.getProgress();
+						item.circle = this.getProgress();
 					}
 					count++
 				}
