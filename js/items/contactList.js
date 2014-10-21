@@ -126,7 +126,7 @@ webApp.ContactList.prototype.extend({
 		if(this.appResizing){
 			this.checkAttachments();
 		}
-		if(this.isMoving || this.refresh){
+		if(this.isMoving || this.isFadeing || this.refresh){
 			this.refreshItems();
 			this.refresh = false;
 		}
