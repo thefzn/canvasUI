@@ -7,7 +7,7 @@ webApp.Title = function(params,parent){
 	this.align = "center";
 	this.text = false;
 	this.color = "#BB3531";
-	this.fontColor = "#BB3531";
+	this.fontColor = "#282626";
 	this.dir = "T";
 	this.fontSize = 13;
 	this.font = "Arial";
@@ -110,7 +110,7 @@ webApp.Title.prototype.extend({
 		this.refresh = true;
 	},
 	beforeRedraw:function(){
-		if(this.isMoving || this.refresh){
+		if(this.isMoving || this.isFadeing || this.refresh){
 			this.refreshItems();
 			this.refresh = false;
 		}
