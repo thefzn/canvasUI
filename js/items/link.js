@@ -101,7 +101,7 @@ webApp.Link.prototype.extend({
 	},
 	beforeRedraw:function(){
 		var followMouse = (this.attachments.start == "mouse" || this.attachments.end == "mouse");
-		if(this.isMoving || this.attachedIsMoving || this.refresh || followMouse){
+		if(this.isMoving || this.isFadeing || this.attachedIsMoving || this.refresh || followMouse){
 			this.checkAttachments();
 			if(this.squared){
 				this.squarePath();
