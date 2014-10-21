@@ -69,9 +69,10 @@ webApp.Vector.prototype.extend({
 	redraw: function(){
 		if(!this.canvas)
 			return false;
-		var adjust,style,size,offset,map,space,pat;
+		var parentOp = (this.parent && typeof this.parent.opacity) ? this.parent.opacity : 1,
+			adjust,style,size,offset,map,space,pat;
 		this.canvas.save();
-		if(this.opacity != 1){
+		if(this.opacity != 1 || parentOp != 1){
 			this.canvas.globalAlpha = (this.parent) ? this.opacity * this.parent.opacity : this.opacity;
 		}
 		this.canvas.beginPath();
