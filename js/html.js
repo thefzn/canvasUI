@@ -31,7 +31,8 @@ webApp.HTML.prototype.extend({
 		this.rendered = {
 			content : "",
 			pos :     [0,0],
-			size :    [0,0] 
+			size :    [0,0],
+			alpha :   0
 		};
 		this.el       = document.createElement("div");
 		
@@ -49,6 +50,8 @@ webApp.HTML.prototype.extend({
 		this.updateSize();
 	},
 	redraw: function(){
+		var parentOp = (this.parent && typeof this.parent.opacity) ? this.parent.opacity : 1,
+			alpha = 0;
 		if(this.content != this.rendered.content){
 			this.updateContent();
 		}
@@ -57,6 +60,12 @@ webApp.HTML.prototype.extend({
 		}
 		if(this.size[0] != this.rendered.size[0] || this.size[1] != this.rendered.size[1]){
 			this.updateSize();
+		}
+		if(this.opacity != this.rendered.alpha || parentOp != this.rendered.alpha){
+			alpha = (this.parent) ? this.opacity * this.parent.opacity : this.opacity;
+			this.el.style.opacity = alpha;
+			this.el.style.filter = "alpha(opacity=" + (alpha * 100) +")";
+			this.rendered.alpha = alpha;
 		}
 	},
 	updateContent: function(){
