@@ -36,7 +36,7 @@ webApp.Group.prototype.extend({
 			i = 0,
 			len = items.length || 0,
 			cons = webApp[type] || false,
-			parent = this.parent,
+			parent = this,
 			i,len,params,className,def,type,cons,item;
 		if(!type || !(items instanceof Array))
 			return false;
