@@ -165,7 +165,7 @@ webApp.Link.prototype.extend({
 		}
 	},
 	checkAttachments: function(){
-		var t = this.width * 10,
+		var t = this.width * 3,
 			newPos = [],
 			center = [],
 			ext, itm, ref, coord, axis, type;
@@ -176,6 +176,9 @@ webApp.Link.prototype.extend({
 			type = itm.type || false;
 			axis = (this.vertical) ? 1 : 0;
 			coord = (ext == "start") ? "pos" : "end";
+			if(coord == "end"){
+				axis = !axis;
+			}
 			ref = (ext == "start") ? this.end : this.pos;
 			if(!type){
 				center[0] = itm.pos[0] + (itm.size[0] / 2);
