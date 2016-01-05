@@ -53,6 +53,7 @@ webApp.Object.prototype = {
 			app;
 		if(p instanceof webApp.Object){
 			this.parent = p;
+			this.container = p.container;
 			this.canvas = (parent.canvas && parent.canvas instanceof CanvasRenderingContext2D) ? parent.canvas : false;
 			app = (p instanceof webApp.App) ? p : (p.app && p.app instanceof webApp.App) ? p.app : false;
 			this.app = app;
