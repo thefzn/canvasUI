@@ -5,21 +5,25 @@ window.requestAnimFrame = (function(callback) {
 	};
 })();
 var webApp = webApp || {};
-webApp.App = function(canvasID){
+webApp.App = function(containerID,size){
 	var self = this;
-	this.canvasID = canvasID || false;
+	this.containerID = containerID || false;
+	if(!containerID){
+		return false;
+	}
 	
 	window.onload = function(){
 		self.domLoaded();
 	}
-	/*
-	this.cnv = (typeof canvasID == "string") ? document.getElementById(canvasID) : canvasID;
-	if(!canvasID || !this.cnv)
-		return false;
-	*/
 	this.preloadQueue = {};
 	this.pos = [0,0];
-	this.size = [300,300];
+	if(size && size instanceof Array && size.length == 2){
+		this.size = size;
+		this.fullScreen = false; 
+	}else{
+		this.size = [300,300];
+		this.fullScreen = true;
+	}
 	this.drawItems = {};
 	this.start = true;
 	this.clickableItems = {};
@@ -34,8 +38,11 @@ webApp.App.prototype.extend({
 		this.go();
 	},
 	domLoaded: function(){
-		var itm;
-		this.cnv = (typeof this.canvasID == "string") ? document.getElementById(this.canvasID) : this.canvasID;
+		var itm, count = 0;
+		this.container = (typeof this.containerID == "string") ? document.getElementById(this.containerID) : this.containerID;
+		this.container.style.position = "relative";
+		this.cnv = document.createElement("canvas");
+		this.container.appendChild(this.cnv);
 		this.canvas = (typeof this.cnv.getContext != "undefined" ) ? this.cnv.getContext('2d'): false;
 		if(!this.canvas){
 			return false;
@@ -46,7 +53,11 @@ webApp.App.prototype.extend({
 		this.setListeners();
 		
 		for(itm in this.preloadQueue){
+			count++;
 			this.addItem(itm,this.preloadQueue[itm]);
+		}
+		if(!count){
+			this.onLoad();
 		}
 		
 	},
@@ -111,6 +122,10 @@ webApp.App.prototype.extend({
 		var b = document.body,
 			h = document.getElementsByTagName("html")[0],
 			self = this;
+		if(!this.fullScreen){
+			this.resize();
+			return false;
+		}
 		
 		h.style.height = "100%";
 		h.style.width = "100%";
@@ -169,10 +184,17 @@ webApp.App.prototype.extend({
 	},
 	resize: function(){
 		var w = document.body.offsetWidth,
-			h = document.body.offsetHeight
-		this.cnv.width = w;
-		this.cnv.height = h;
-		this.size = [w,h];
-		this.resizing = true;
+			h = document.body.offsetHeight;
+		if(!this.fullScreen){
+			console.log(this.size);
+			this.cnv.width = this.size[0];
+			this.cnv.height = this.size[1];
+			this.resizing = true;
+		}else{
+			this.cnv.width = w;
+			this.cnv.height = h;
+			this.size = [w,h];
+			this.resizing = true;
+		}
 	}
 });
